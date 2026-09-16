@@ -45,7 +45,7 @@ export function EventShell({ eventData, children }: EventShellProps) {
         ctaHref={showCta ? "/#register" : undefined}
       />
       {children}
-      <Footer baseTextColor={styleValue(styles, "baseText", "#171717")} />
+      <Footer baseBackgroundColor={styleValue(styles, "baseBg", "#ffffff")} />
     </div>
   );
 }
