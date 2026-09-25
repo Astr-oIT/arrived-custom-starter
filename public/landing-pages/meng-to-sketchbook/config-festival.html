@@ -608,69 +608,125 @@
 
     .loupe .ring {
       position: absolute;
-      inset: 0;
-      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      width: 180px;
+      height: 120px;
+      transform: translate(-50%, -50%);
       pointer-events: auto;
       cursor: grab;
-      padding: calc(var(--lr, 270px) * .058);
-      box-shadow:
-        0 1px 2px rgba(58, 44, 26, .30),
-        0 10px 18px rgba(58, 44, 26, .24),
-        0 26px 40px rgba(58, 44, 26, .20),
-        0 48px 66px rgba(58, 44, 26, .13);
-    }
-
-    .loupe .ring:before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      pointer-events: none;
-      background: linear-gradient(146deg,
-          #fdf7e9 0%, #e6d7b4 14%, #b69d70 32%, #7d6740 50%,
-          #cdbb92 66%, #f4ead3 80%, #9b8459 100%);
-      box-shadow:
-        inset 0 1px 1px rgba(255, 255, 255, .8),
-        inset 0 -2px 3px rgba(70, 52, 26, .5);
-      -webkit-mask-image: radial-gradient(circle closest-side at 50% 50%, transparent 0 88.2%, #000 89.8% 100%);
-      mask-image: radial-gradient(circle closest-side at 50% 50%, transparent 0 88.2%, #000 89.8% 100%);
     }
 
     .loupe .grip {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: calc(var(--lr, 270px) * .74);
-      height: calc(var(--lr, 270px) * .125);
-      transform-origin: 0 50%;
-      transform: rotate(40deg) translate(calc(var(--lr, 270px) * .33), -50%);
-      border-radius: calc(var(--lr, 270px) * .06);
-      pointer-events: auto;
-      cursor: grab;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, .46) 0 13%, rgba(255, 255, 255, 0) 44%,
-          rgba(0, 0, 0, .26) 100%),
-        linear-gradient(90deg, #d9bd82 0 14%, #a9884e 14% 20%, #6d4c2b 20% 62%,
-          #5a3d22 62% 92%, #7a563180 92% 100%);
-      box-shadow: 0 8px 15px rgba(58, 44, 26, .26), 0 18px 26px rgba(58, 44, 26, .14);
+      display: none
     }
 
-    .lens {
+    #loupeLens {
       position: relative;
+      display: block;
+      width: 180px;
+      height: 120px;
+      border: 2px solid #1A1A1A;
+      border-radius: 0;
+      background: rgba(255, 255, 255, .04);
+      background-repeat: no-repeat;
+      overflow: visible;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .8), 0 8px 20px rgba(0, 0, 0, .12);
+    }
+
+    #loupeMag {
+      position: absolute;
+      inset: 0;
       display: block;
       width: 100%;
       height: 100%;
-      border-radius: 50%;
-      background-repeat: no-repeat;
-      overflow: hidden;
-      box-shadow:
-        inset 0 0 0 1px rgba(52, 40, 22, .55),
-        inset 0 4px 12px rgba(40, 30, 14, .28),
-        inset 0 -7px 16px rgba(255, 250, 240, .14);
+      border-radius: 0;
+      background: transparent;
+      pointer-events: none;
+      z-index: 1
     }
 
-    .lens .mag {
-      display: none
+    .loupe-node {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border: 1px solid #1A1A1A;
+      border-radius: 0;
+      background: #1A1A1A;
+      z-index: 3;
+      pointer-events: none
+    }
+
+    .loupe-node:before,
+    .loupe-node:after {
+      content: "";
+      position: absolute;
+      background: #1A1A1A;
+      pointer-events: none
+    }
+
+    .loupe-node:before {
+      top: 2px;
+      width: 15px;
+      height: 1px
+    }
+
+    .loupe-node:after {
+      left: 2px;
+      width: 1px;
+      height: 15px
+    }
+
+    .loupe-node.top-left {
+      top: -4px;
+      left: -4px
+    }
+
+    .loupe-node.top-left:before {
+      right: 5px
+    }
+
+    .loupe-node.top-left:after {
+      bottom: 5px
+    }
+
+    .loupe-node.top-right {
+      top: -4px;
+      right: -4px
+    }
+
+    .loupe-node.top-right:before {
+      left: 5px
+    }
+
+    .loupe-node.top-right:after {
+      bottom: 5px
+    }
+
+    .loupe-node.bottom-left {
+      bottom: -4px;
+      left: -4px
+    }
+
+    .loupe-node.bottom-left:before {
+      right: 5px
+    }
+
+    .loupe-node.bottom-left:after {
+      bottom: 5px
+    }
+
+    .loupe-node.bottom-right {
+      right: -4px;
+      bottom: -4px
+    }
+
+    .loupe-node.bottom-right:before {
+      left: 5px
+    }
+
+    .loupe-node.bottom-right:after {
+      top: 5px
     }
 
     .zoomwrap {
@@ -688,45 +744,13 @@
       transform-origin: 0 0
     }
 
-    .lens:before,
-    .lens:after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      pointer-events: none
-    }
-
-    .lens:before {
-      z-index: 1
-    }
-
-    .lens:after {
-      z-index: 2
-    }
-
-    .lens:before {
-      background: radial-gradient(circle at 50% 50%,
-          rgba(0, 0, 0, 0) 54%, rgba(58, 44, 26, .10) 76%, rgba(46, 34, 16, .34) 100%);
-      box-shadow:
-        inset 0 0 0 2px rgba(130, 162, 196, .26),
-        inset 0 0 0 4px rgba(206, 158, 112, .15);
-    }
-
-    .lens:after {
-      background:
-        radial-gradient(36% 26% at 29% 19%, rgba(255, 255, 255, .30), rgba(255, 255, 255, 0) 76%),
-        radial-gradient(24% 16% at 74% 86%, rgba(255, 255, 255, .12), rgba(255, 255, 255, 0) 80%),
-        linear-gradient(150deg, rgba(255, 255, 255, .06) 0 18%, rgba(255, 255, 255, 0) 42%);
-    }
-
     .sb-tools {
       display: flex;
       align-items: center;
       gap: 6px;
       border: 1px solid var(--hairline);
       border-radius: 999px;
-      padding: 5px 7px;
+      padding: 0px 7px;
       background: rgba(250, 246, 238, .62);
       -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px);
@@ -1049,6 +1073,149 @@
       color: var(--earth)
     }
 
+    .sessions-section {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 48px);
+      scroll-margin-top: 120px
+    }
+
+    .sessions-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 22px
+    }
+
+    .sessions-title {
+      font-family: var(--display);
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: .01em
+    }
+
+    .session-filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: end;
+      gap: 8px
+    }
+
+    .session-filter {
+      padding: 7px 12px;
+      border: 1px solid var(--hairline);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink-soft);
+      font-family: var(--font);
+      font-size: 12px;
+      letter-spacing: .06em;
+      cursor: pointer;
+      transition: background-color .2s ease, border-color .2s ease, color .2s ease
+    }
+
+    .session-filter:hover,
+    .session-filter[aria-pressed="true"] {
+      border-color: var(--earth);
+      background: rgba(154, 106, 62, .12);
+      color: var(--ink)
+    }
+
+    .session-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      border-top: 1px solid var(--hairline);
+      border-left: 1px solid var(--hairline);
+      background: var(--hairline)
+    }
+
+    .session-card {
+      display: grid;
+      grid-template-columns: 7.2em minmax(0, 1fr);
+      gap: 18px;
+      min-height: 170px;
+      padding: 20px;
+      background: rgba(236, 231, 220, .86);
+      transition: background-color .2s ease
+    }
+
+    .session-card:hover {
+      background: rgba(255, 252, 244, .68)
+    }
+
+    .session-card[hidden] {
+      display: none
+    }
+
+    .session-meta,
+    .session-speaker,
+    .session-tag {
+      font-size: 12px;
+      line-height: 1.45
+    }
+
+    .session-meta {
+      color: var(--ink-soft)
+    }
+
+    .session-meta strong {
+      display: block;
+      color: var(--ink);
+      font-weight: 400
+    }
+
+    .session-tag {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: var(--earth);
+      letter-spacing: .12em;
+      text-transform: uppercase
+    }
+
+    .session-card h3 {
+      font-family: var(--display);
+      font-size: clamp(21px, 2.1vw, 28px);
+      font-weight: 400;
+      line-height: 1.08;
+      margin: 0 0 13px
+    }
+
+    .session-speaker {
+      margin: 0;
+      color: var(--ink-soft)
+    }
+
+    .session-speaker strong {
+      color: var(--ink);
+      font-weight: 400
+    }
+
+    @media (max-width:760px) {
+      .sessions-head {
+        display: block
+      }
+
+      .session-filters {
+        justify-content: start;
+        margin-top: 22px
+      }
+
+      .session-list {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media (max-width:480px) {
+      .session-card {
+        grid-template-columns: 5.8em minmax(0, 1fr);
+        gap: 12px;
+        padding: 16px
+      }
+    }
+
     /* Registration CTA section */
     .register-cta {
       max-width: 1080px;
@@ -1112,6 +1279,7 @@
       <nav>
         <a href="#sketchbook">Journal</a>
         <a href="#about">About</a>
+        <a href="#sessions">Sessions</a>
         <a href="#register" id="navRegister">Register</a>
       </nav>
     </header>
@@ -1149,7 +1317,10 @@
               <div class="zoominner" id="zoomInner"></div>
             </div>
             <div class="loupe" id="loupe"><span class="grip"></span><span class="ring"><span class="lens"
-                  id="loupeLens"><span class="mag" id="loupeMag"></span></span></span></div>
+              id="loupeLens"><span class="loupe-node top-left" aria-hidden="true"></span><span
+                class="loupe-node top-right" aria-hidden="true"></span><span class="loupe-node bottom-left"
+                aria-hidden="true"></span><span class="loupe-node bottom-right" aria-hidden="true"></span><span
+                class="mag" id="loupeMag"></span></span></span></div>
           </div>
           <button class="sb-arrow right" id="sbRight" aria-label="next page">
             <svg viewBox="0 0 14 44" width="14" height="44" fill="none" aria-hidden="true">
@@ -1211,6 +1382,59 @@
     <section id="plates" class="plates">
       <p class="section-label">Editorial Index</p>
       <ol class="plate-list" id="plateList"></ol>
+    </section>
+
+    <div class="rule short" aria-hidden="true"></div>
+
+    <section id="sessions" class="sessions-section" aria-labelledby="sessionsTitle">
+      <div class="sessions-head">
+        <div>
+          <p class="section-label">The Programme</p>
+          <h2 id="sessionsTitle" class="sessions-title">Sessions</h2>
+        </div>
+        <div class="session-filters" role="group" aria-label="Filter sessions">
+          <button class="session-filter" type="button" data-session-filter="all" aria-pressed="true">All</button>
+          <button class="session-filter" type="button" data-session-filter="keynote" aria-pressed="false">Keynote</button>
+          <button class="session-filter" type="button" data-session-filter="design-systems" aria-pressed="false">Design Systems</button>
+          <button class="session-filter" type="button" data-session-filter="ai-ux" aria-pressed="false">AI / UX</button>
+          <button class="session-filter" type="button" data-session-filter="workshop" aria-pressed="false">Workshop</button>
+        </div>
+      </div>
+
+      <div class="session-list">
+        <article class="session-card" data-session-category="keynote">
+          <div class="session-meta"><strong>09:30 AM</strong>Main Hall<br>Day 01</div>
+          <div>
+            <span class="session-tag">Keynote</span>
+            <h3>Make Things Worth Remembering</h3>
+            <p class="session-speaker"><strong>Maya Santos</strong><br>Creative Technologist</p>
+          </div>
+        </article>
+        <article class="session-card" data-session-category="design-systems">
+          <div class="session-meta"><strong>11:00 AM</strong>Palácio Estúdio<br>Day 01</div>
+          <div>
+            <span class="session-tag">Design Systems</span>
+            <h3>The Living Design System</h3>
+            <p class="session-speaker"><strong>Noah Park</strong><br>Product Designer</p>
+          </div>
+        </article>
+        <article class="session-card" data-session-category="ai-ux">
+          <div class="session-meta"><strong>01:30 PM</strong>Workshop Room<br>Day 02</div>
+          <div>
+            <span class="session-tag">AI / UX</span>
+            <h3>Creative Intelligence: Designing with AI</h3>
+            <p class="session-speaker"><strong>Ines Martins</strong><br>Digital Artist</p>
+          </div>
+        </article>
+        <article class="session-card" data-session-category="workshop">
+          <div class="session-meta"><strong>03:00 PM</strong>Atelier 28<br>Day 02</div>
+          <div>
+            <span class="session-tag">Workshop</span>
+            <h3>From Sketchbook to Screen</h3>
+            <p class="session-speaker"><strong>Jonas Reed</strong><br>AI Researcher</p>
+          </div>
+        </article>
+      </div>
     </section>
 
     <div class="rule short" aria-hidden="true"></div>
@@ -1584,7 +1808,9 @@
       if (lx === null) return;
       const B = bookBox(), bw = B.w, bh = B.h;
       if (!bw) return;
-      const R = loupeSize() / 2, bez = R * 2 * 0.058;
+      const R = loupeSize() / 2;
+      const frameW = 180, frameH = 120;
+      const halfW = frameW / 2, halfH = frameH / 2;
       loupe.style.setProperty('--lr', R * 2 + 'px');
       loupe.style.transform = 'translate3d(' + (lx - R).toFixed(1) + 'px,' + (ly - R).toFixed(1) + 'px,0)';
       if (loupeOn) loupe.classList.add('on');
@@ -1596,14 +1822,18 @@
       const inside = (lx > x0 && lx < x1 && ly > y0 && ly < y1)
         ? Math.min(lx - x0, x1 - lx, ly - y0, y1 - ly)
         : -Math.hypot(lx - nx, ly - ny);
-      const k = Math.max(0, Math.min(1, (inside + R * 0.30) / (R * 0.55)));
+      const k = Math.max(0, Math.min(1, (inside + halfH * 0.30) / (halfH * 0.55)));
       zoomWrap.style.opacity = (loupeOn ? k : 0).toFixed(3);
       if (k <= 0.002) return;
-      const r = (R - bez).toFixed(1);
-      const mask = 'radial-gradient(circle ' + r + 'px at ' + lx.toFixed(1) + 'px ' + ly.toFixed(1) + 'px,'
-        + '#000 calc(100% - 1px),transparent 100%)';
+      const mask = 'linear-gradient(#000, #000)';
       zoomWrap.style.webkitMaskImage = mask;
       zoomWrap.style.maskImage = mask;
+      zoomWrap.style.webkitMaskSize = frameW + 'px ' + frameH + 'px';
+      zoomWrap.style.maskSize = frameW + 'px ' + frameH + 'px';
+      zoomWrap.style.webkitMaskPosition = (lx - halfW).toFixed(1) + 'px ' + (ly - halfH).toFixed(1) + 'px';
+      zoomWrap.style.maskPosition = (lx - halfW).toFixed(1) + 'px ' + (ly - halfH).toFixed(1) + 'px';
+      zoomWrap.style.webkitMaskRepeat = 'no-repeat';
+      zoomWrap.style.maskRepeat = 'no-repeat';
       const px = cx + (lx - cx) / z, py = cy + (ly - cy) / z, s = MAG * z;
       zoomInner.style.transform = 'translate(' + (lx - px * s).toFixed(1) + 'px,' + (ly - py * s).toFixed(1) + 'px) '
         + 'scale(' + s.toFixed(4) + ')';
@@ -1675,6 +1905,18 @@
       const cur = turn ? turn.to : idx;
       plateList.querySelectorAll('.plate').forEach((b, i) => b.setAttribute('aria-current', i === cur ? 'true' : 'false'));
     }
+
+    const sessionFilters = document.querySelectorAll('[data-session-filter]');
+    const sessionCards = document.querySelectorAll('[data-session-category]');
+    sessionFilters.forEach(filter => {
+      filter.addEventListener('click', () => {
+        const category = filter.dataset.sessionFilter;
+        sessionFilters.forEach(button => button.setAttribute('aria-pressed', String(button === filter)));
+        sessionCards.forEach(card => {
+          card.hidden = category !== 'all' && card.dataset.sessionCategory !== category;
+        });
+      });
+    });
 
     /* ------------------------------------------ riffle intro */
     let riffle = null, riffleAt = 0, introOn = false;
